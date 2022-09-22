@@ -1,339 +1,1022 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-        <title>My Presentation</title>
+    <title>MAT8186 &mdash; Cours 4</title>
 
-        <link rel="stylesheet" href="dist/reset.css">
-        <link rel="stylesheet" href="dist/reveal.css">
-        <link rel="stylesheet" href="dist/theme/mytheme.css" id="theme">
-    </head>
-    <body>
-        <div class="reveal">
-            <div class="slides">
-                <section class="cover">
-                    <h1>Title of the presentation</h1>
-                    <h2>Author</h2>
-                    <h3>Event</h3>
-                    <h3>Date</h3>
-                </section>
-                <section>
-                    <section class="title-slide">
-                        <h1>Theme of the next vertical slides</h1>
-                        <h2>Why not have a subtitle too?</h2>
-                    </section>
-                    <section>
-                        <h1>Title of the slide</h1>
-                        Some content in the form of an ordered list:
-                        <ol>
-                            <li>First very important point</li>
-                            <li>Second less important point</li>
-                        </ol>
-                    </section>
-                </section>
-                <section>
-                    <h1>Code</h1>
-                    <p>Are you ready for some awesome <code class="julia">content = "code"</code>?</p>
-                    <pre class="julia"><code data-trim>
-test = 41 + 1
-function ret42(x::Int)
-    ret = 42 - x
-    ret + x
-end
-                    </code></pre>
-                </section>
-                <section>
-                    Slide 2<br>
-                    <a href="https://www.perdu.com">This is a link</a>
-                </section>
-                <section>
-                    <h1>Title of the slide</h1>
-                    <p>Sample unordered list:</p>
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/mytheme.css" id="theme">
+
+    <style>
+      /* Section oop-examples */
+      #oop-examples dt {
+          flex-basis: 40%;
+      }
+
+      #oop-examples dd {
+          flex-basis: 55%;
+      }
+
+      /* Section terminologie1 */
+      #terminologie1 dt {
+          flex-basis: 25%;
+      }
+
+      terminologie1 dd {
+          flex-basis: 70%;
+      }
+
+      /* Section terminologie 2 */
+      #terminologie2 {
+          font-size: 37px;
+      }
+
+      #terminologie2 dt {
+          flex-basis: 37%;
+      }
+
+      #terminologie2 dd {
+          flex-basis: 63%;
+      }
+
+      /* Section terminologie 3 */
+      #terminologie3 dt {
+          flex-basis: 40%;
+      }
+
+      #terminologie3 dd {
+          flex-basis: 60%;
+      }
+
+      /* Section terminologie 4 */
+      #terminologie4 dt {
+          flex-basis: 45%;
+      }
+
+      #terminologie4 dd {
+          flex-basis: 55%;
+      }
+
+      /* 2 columns layout */
+      .column2 {
+          float: left;
+          width: 50%;
+      }
+
+      .column2:after {
+          content: "" !important;
+      }
+
+      .row:after {
+          content: "";
+          display: table;
+          clear: both;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section class="cover">
+          <h1>Cours 4 &mdash; Programmation orientée objet</h1>
+          <h2>Patrick Fournier</h2>
+          <h3>MAT8186 &mdash; Techniques avancées en programmation statistiques R</h3>
+          <h3>Automne 2022</h3>
+        </section>
+        <section>
+          <section class="title-slide">
+            <h1>Introduction</h1>
+          </section>
+          <section>
+            <h1>OOP 101</h1>
+            <ul>
+              <li>Paradigme sous lequel le concept <em>d'objet</em> joue un rôle central</li>
+              <dl id="oop-examples">
+                <dt>Objet physique</dt> <dd>table, chargé de cours</dd>
+                <dt>Concept</dt> <dd>matrice, paix dans le monde</dd>
+              </dl>
+              <li>Approche OO
+                <ol>
+                  <li>Définir un ensemble d'objets</li>
+                  <li>Définir les interactions entre ces objets</li>
+                </ol>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>OOP et langage</h1>
+            <ul>
+              <li>Plus un <em>état d'esprit</em> qu'une caractéristique d'un langage</li>
+              <li>Plus facile dans certains langages</li>
+              <li>Premier langage OO: Simula 67</li>
+            </ul>
+          </section>
+          <section>
+            <h1>Terminologie 1</h1>
+            <dl id="terminologie1">
+              <dt>Classe</dt><dd>Déclaration (parfois définition) de
+              la structure interne d'un <em>ensemble d'objets</em></dd>
+              <dt>Slot</dt><dd><em>Variable</em> associée à un objet /
+              une classe (aussi field, attribut)</dd>
+              <dt>Méthode</dt><dd><em>Fonction</em> associée à un ou plusieurs objet(s) / classe(s)</dd>
+            </dl>
+          </section>
+          <section>
+            <h1>Terminologie 2</h1>
+            <dl id="terminologie2">
+              <dt>Héritage</dt><dd>Processus par lequel une classe
+              fille <em>acquiert la structure</em> d'une ou plusieurs classes
+              mères</dd>
+              <dt>Polymorphisme</dt><dd>Une <em>unique interface</em>
+              pour plusieurs entités de type différents</dd>
+              <dt>Encapsulation</dt><dd><em>Cacher l'implémentation</em> à l'utilisateur</dd>
+            </dl>
+          </section>
+          <section>
+            <h1>Terminologie 3</h1>
+            <dl id="terminologie3">
+              <dt>Message passing</dt><dd>Communication entre les objets</dd>
+              <ul>
+                <li><em>Messages</em> \( = \) idée fondamentale de
+                  l'OOP (Alan Kay &amp; Smalltalk)</li>
+                <li>Souvent limité à des appels de méthodes (C++, Java...)</li>
+                <li>Concept beaucoup plus large (Smalltalk, Groovy...)</li>
+              </ul>
+            </dl>
+          </section>
+          <section>
+            <h1>Terminologie 4</h1>
+            <dl id="terminologie4">
+              <dt>Fonction générique</dt><dd>Sert
+              à <em>dispatcher</em> les appels de méthodes</dd>
+              <ul>
+                <li>Choisit la méthode répondant le mieux a notre besoin</li>
+                <li>Origines: Flavors (Lisp Machine Lisp) &amp; CommonLoops (Common Lisp)</li>
+                <li>Approche &laquo;de base&raquo; de R</li>
+              </ul>
+            </dl>
+          </section>
+        </section>
+        <section>
+          <section class="title-slide">
+            <h1>OOP et R</h1>
+          </section>
+          <section>
+            <h1>Systèmes d'objets</h1>
+            <ul style="font-size: 35px;">
+              <li class="no-after" style="margin-bottom: -3ex;">S3
+                <ul>
+                  <li>Fonctions génériques</li>
+                  <li>Pas de classes formelles</li>
+                </ul>
+              </li>
+              <li class="no-after" style="margin-bottom: -3ex;">S4
+                <ul>
+                  <li>S3 \( + \) classes formelles</li>
+                </ul>
+              </li>
+              <li class="no-after" style="margin-bottom: -3ex;">Reference classes (RC, R5)
+                <ul>
+                  <li>Message passing</li>
+                  <li>Instances <em>mutables</em></li>
+                </ul>
+              </li>
+              <li class="no-after" style="margin-bottom: -3ex;">R6
+                <ul>
+                  <li>&laquo;Version améliorée&raquo; de RC</li>
+                </ul>
+              </li>
+            </ul>
+          </section>
+          <section>
+            <h1>Caractéristiques des systèmes</h1>
+            <div class="row">
+              <div class="column2">
+                <ul style="font-size:30px;">
+                  <li class="no-after" style="margin-bottom: -3ex;">S3
                     <ul>
-                        <li>First item</li>
-                        <li>Second item</li>
+                      <li>Très informel</li>
+                      <li>Peu de fonctionnalités</li>
+                      <li>Facile à apprendre</li>
+                      <li>Facile à utiliser</li>
+                      <li>Souvent suffisant</li>
                     </ul>
-                </section>
-                <section>
-                    <p>This integral is not as easy as \( 2 + \frac 4 2 = 4 \) &#x1F614;</p>
-                    $$\begin{equation*}
-                    \int_{-\infty}^{\infty} e^{\frac{-x^2}{2}} \text d x
-                    \end{equation*}$$
-                </section>
-                <section data-markdown>
-                    <textarea data-template>
-## Slide 1
-A paragraph with some text and a [link](http://hakim.se).
----
-## Slide 2
-A reference<span class="reference">1</span>
----
-## Slide 3
-Another reference<span class="reference">3</span>
-                    </textarea>
-                </section>
-
-                <section id="references">
-                    <section class="title-slide">
-                        <h1>References</h1>
-                    </section>
-                    <section>
-                        <ol>
-                            <li>Croucha, D. J. M., &#38; Bodmer, W. F. (2020). Polygenic inheritance, GWAS, polygenic risk scores, and the search for functional variants. <i>Proceedings of the National Academy of Sciences of the United States of America</i>, <i>117</i>(32), 18924–18933. <a href="https://doi.org/10.1073/pnas.2005634117">https://doi.org/10.1073/pnas.2005634117</a></li>
-                            <li>Meuwissen, T. H. E., Hayes, B. J., &#38; Goddard, M. E. (2001). Prediction of Total Genetic Value Using Genome-Wide Dense Marker Maps. <i>Genetics</i>, <i>157</i>(4), 1819–1829. <a href="https://doi.org/10.1093/GENETICS/157.4.1819">https://doi.org/10.1093/GENETICS/157.4.1819</a></li>
-                        </ol>
-                    </section>
-                    <section>
-                        <ol start = 3>
-                            <li>Slatkin, M. (2008). Exchangeable models of complex inherited diseases. <i>Genetics</i>, <i>179</i>(4), 2253–2261. <a href="https://doi.org/10.1534/genetics.107.077719">https://doi.org/10.1534/genetics.107.077719</a></li>
-                            <li>Visscher, P. M., &#38; Wray, N. R. (2016). Concepts and Misconceptions about the Polygenic Additive Model Applied to Disease. <i>Human Heredity</i>, <i>80</i>(4), 165–170. <a href="https://doi.org/10.1159/000446931">https://doi.org/10.1159/000446931</a></li>
-                        </ol>
-                    </section>
-                </section>
+                  </li>
+                  <li class="no-after" style="margin-bottom: -3ex;">S4
+                    <ul>
+                      <li>Moins performant que S3</li>
+                      <li>Plus difficile à utiliser</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+              <div class="column2">
+                <ul style="font-size:30px;">
+                  <li class="no-after" style="margin-bottom: -3ex;">RC
+                    <ul>
+                      <li>Moins performant que R6</li>
+                      <li>Objets mutables</li>
+                      <li>basé sur S4</li>
+                    </ul>
+                  </li>
+                  <li>R6
+                    <ul>
+                      <li>Basé sur S3</li>
+                      <li>Essentiellement RC, mais &laquo;mieux&raquo;</li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
-        </div>
+          </section>
+          <section>
+            <h1>Choisir un système</h1>
+            <ul style="font-size:35px;">
+              <li>Par défaut: <em>S3</em></li>
+              <li>Si la mutabilité est importante: R6</li>
+              <li class="no-after" style="margin-bottom: -3ex;">S4 si vous avez besoin
+                <ul>
+                  <li>Héritage multiple (plus d&apos;une classe mère)</li>
+                  <li>Dispatch multiple (dispatch sur plusieurs arguments)</li>
+                  <li>Intégration avec <a href="https://www.bioconductor.org/">Bioconductor</a></li>
+                </ul>
+              </li>
+              <li>RC si vous êtes obligés &#x1f609;</li>
+            </ul>
+          </section>
+        </section>
+        <section>
+          <section class="title-slide">
+            <h1>S3</h1>
+          </section>
+          <section>
+            <h1>Attribut <code class="language-R hljs">class</code></h1>
+            <ul>
+              <li>S3 est basé sur une seule chose:
+              <em>l&apos;attribut <code class="language-R
+                                          hljs">class</code></em></li>
+              <li>De type <code class="language-R hljs">character</code></li>
+              <li>Entrées ordonnées en ordre <em>décroissant</em> de spécificité</li>
+            </ul>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Structure</h1>
+                <ul>
+                  <li class="no-after" style="margin-bottom: -3ex;">Objet S3 composé de
+                    <ul>
+                      <li>Un objet &laquo;standard&raquo;</li>
+                      <li>Un attribut <code class="language-R hljs">class</code></li>
+                    </ul>
+                  </li>
+                  <li>Objet standard: souvent une <code class="language-R
+                                                               hljs">list</code>, mais pas d&apos;obligation</li>
+                </ul>
+              </div>
 
-        <div id="logo"><p>
-            Author (Institution)
-            <span class="separator"></span>
-            Session
-            <span class="separator"></span>
-            Event (Venue)
-            <span class="separator"></span>
-            Date
-        </p></div>
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" data-trim data-noescape style="font-size:30px;">
+                    <span class="hljs-repl">r$&gt;</span> p1 &lt;- c(1, 2)
+                    <span class="hljs-repl">r$&gt;</span> class(p1) &lt;- c("point", "numeric")
+                </code></pre>
 
-        <div id="qrcode" alt="Slides"></div>
+                <pre><code class="language-R hljs" data-trim data-noescape style="font-size:30px;">
+                    <span class="hljs-repl">r$&gt;</span> p2 &lt;- c(1, 2)
+                    <span class="hljs-repl">r$&gt;</span> attributes(p2) &lt;- list(class = c("point",
+                                                         "numeric"))
+                </code></pre>
+                <pre><code class="language-R hljs" data-trim data-noescape style="font-size:30px;">
+                    <span class="hljs-repl">r$&gt;</span> p3 <- structure(c(3, 4), class = c("point",
+                                                           "numeric"))
+                </code></pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Constructeur</h1>
+                <ul>
+                  <li>L&apos;appel à <code class="language-R hljs">class&lt;-</code>, <code class="language-R hljs">attributes&lt;-</code> ou <code class="language-R hljs">structure</code> n&apos;est ni élégant, pratique ou sécuritaire</li>
+                  <li>Il est d'usage de définir un (plusieurs) constructeur(s) &#x1f477;</li>
+                  <li>Simple fonction qui se charge de l'appel</li>
+                  <li>Permet <em>verifications</em></li>
+                  <li>Convention: nom constructeur \( = \) nom classe</li>
+                </ul>
+              </div>
 
-        <script src="dist/reveal.js"></script>
-        <script src="plugin/notes/notes.js"></script>
-        <script src="plugin/highlight/highlight.js"></script>
-        <script src="plugin/math/math.js"></script>
-        <script src="plugin/markdown/markdown.js"></script>
-        <script src="plugin/spotlight/spotlight.js"></script>
-        <script src="node_modules/reveal.js-menu/menu.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="dist/perso.js"></script>
-        <script type="text/javascript">qrcode.makeCode("www.patrickfournier.ca");</script>
-        <script>
-         // More info about initialization & config:
-         // - https://revealjs.com/initialization/
-         // - https://revealjs.com/config/
-         Reveal.initialize({
-             hash: true,
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    point &lt;-  function(v){
+                        v &lt;- as.numeric(v)
 
-             // Learn about plugins: https://revealjs.com/plugins/
-             plugins: [ RevealHighlight, RevealMath.KaTeX, RevealMenu, RevealMarkdown, RevealNotes ],
+                        stopifnot(identical(length(v), 2L))
 
-             menu: {
-                 // Specifies which side of the presentation the menu will
-                 // be shown. Use 'left' or 'right'.
-                 side: 'left',
+                        structure(v, class = c("point", class(v)))
+                    }
+                </code></pre>
+              </div>
 
-                 // Specifies the width of the menu.
-                 // Can be one of the following:
-                 // 'normal', 'wide', 'third', 'half', 'full', or
-                 // any valid css length value
-                 width: 'normal',
+              <div class="fragment fade-in obox" data-fragment-index="3">
+                <pre><code class="language-R hljs" data-trim data-noescape style="font-size:30px;">
+                    <span class="hljs-repl">r$&gt;</span> point(1:3)
+                    Error in point(1:3): identical(length(v), 2L)
+                        is not TRUE
+                </code></pre>
 
-                 // Add slide numbers to the titles in the slide list.
-                 // Use 'true' or format string (same as reveal.js slide numbers)
-                 numbers: false,
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> point(letters[1:2])
+                    Warning message in point(letters[1:2]):
+                    “NAs introduced by coercion”
+                    [1] NA NA
+                    attr(,"class")
+                    [1] "point"   "numeric"
+                </code></pre>
 
-                 // Specifies which slide elements will be used for generating
-                 // the slide titles in the menu. The default selects the first
-                 // heading element found in the slide, but you can specify any
-                 // valid css selector and the text from the first matching
-                 // element will be used.
-                 // Note: that a section data-menu-title attribute or an element
-                 // with a menu-title class will take precedence over this option
-                 titleSelector: 'h1, h2',
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    point(1:2)
+                    [1] 1 2
+                    attr(,"class")
+                    [1] "point"   "numeric"
+                </code></pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Méthodes</h1>
+            <ul>
+              <li>Reconaissables par leur nom: <code class="language-R hljs">méthode.classe(...)</code></li>
+              <li>Facile de définir de nouvelles méthodes</li>
+              <li>Possible d'implémenter des méthodes pour une classe que l'on a pas définie: <em>type piracy</em> &#x1f3f4;&#x200d;&#x2620;&#xfe0f;</li>
+            </ul>
 
-                 // If slides do not have a matching title, attempt to use the
-                 // start of the text content as the title instead
-                 useTextContentForMissingTitles: false,
+            <aside class="notes">
+              <ul>
+                <li>Il suffit de bien nommer une fonction pour en faire une méthode!</li>
+                <li>Comme le suggère le nom, pirater un type est généralement une mauvaise idée</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Méthode <code class="language-R hljs">print</code></h1>
+                <ul>
+                  <li><code class="language-R hljs"><span class="hljs-repl">r$&gt;</span> var</code> \( \Leftrightarrow \) <code class="language-R hljs"><span class="hljs-repl">r$&gt;</span> print(var)</code></li>
+                  <li>En ce moment, appel dispatché à une méthode plus générale</li>
+                </ul>
 
-                 // Hide slides from the menu that do not have a title.
-                 // Set to 'true' to only list slides with titles.
-                 hideMissingTitles: true,
+                <br><br>
+                Nous allons:
+                <br>
+                <ol>
+                  <li>Définir <code class="language-R hljs">print</code> pour <code class="language-R hljs">point</code></li>
+                  <li>Définir <code class="language-R hljs">norme</code> retournant la norme euclidienne du vecteur correspondant</li>
+                </ol>
+              </div>
 
-                 // Adds markers to the slide titles to indicate the
-                 // progress through the presentation. Set to 'false'
-                 // to hide the markers.
-                 markers: true,
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    print.point &lt;- function(x, ...)
+                        cat("x =", x[1],
+                        "& y =", x[2], "\n")
 
-                 // Specify custom panels to be included in the menu, by
-                 // providing an array of objects with 'title', 'icon'
-                 // properties, and either a 'src' or 'content' property.
-                 custom: false,
 
-                 // Specifies the themes that will be available in the themes
-                 // menu panel. Set to 'true' to show the themes menu panel
-                 // with the default themes list. Alternatively, provide an
-                 // array to specify the themes to make available in the
-                 // themes menu panel, for example...
-                 //
-                 // [
-                 //     { name: 'Black', theme: 'dist/theme/black.css' },
-                 //     { name: 'White', theme: 'dist/theme/white.css' },
-                 //     { name: 'League', theme: 'dist/theme/league.css' },
-                 //     {
-                 //       name: 'Dark',
-                 //       theme: 'lib/reveal.js/dist/theme/black.css',
-                 //       highlightTheme: 'lib/reveal.js/plugin/highlight/monokai.css'
-                 //     },
-                 //     {
-                 //       name: 'Code: Zenburn',
-                 //       highlightTheme: 'lib/reveal.js/plugin/highlight/zenburn.css'
-                 //     }
-                 // ]
-                 //
-                 // Note: specifying highlightTheme without a theme will
-                 // change the code highlight theme while leaving the
-                 // presentation theme unchanged.
-                 themes: false,
+                </code></pre>
 
-                 // Specifies the path to the default theme files. If your
-                 // presentation uses a different path to the standard reveal
-                 // layout then you need to provide this option, but only
-                 // when 'themes' is set to 'true'. If you provide your own
-                 // list of themes or 'themes' is set to 'false' the
-                 // 'themesPath' option is ignored.
-                 themesPath: 'dist/theme/',
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> p1 &lt;- 1:2
+                    x = 1 & y = 2
+                </code></pre>
+              </div>
 
-                 // Specifies if the transitions menu panel will be shown.
-                 // Set to 'true' to show the transitions menu panel with
-                 // the default transitions list. Alternatively, provide an
-                 // array to specify the transitions to make available in
-                 // the transitions panel, for example...
-                 // ['None', 'Fade', 'Slide']
-                 transitions: false,
+              <div class="fragment fade-in obox" data-fragment-index="3">
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    norme.point &lt;- function(x)
+                        as.numeric(sqrt(crossprod(x)))
+                </code></pre>
 
-                 // Adds a menu button to the slides to open the menu panel.
-                 // Set to 'false' to hide the button.
-                 openButton: true,
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> norme(point(c(3, 4)))
+                    Error in norme(point(c(3, 4))) : could
+                    not find function "norme"
+                </code></pre>
+              </div>
 
-                 // If 'true' allows the slide number in the presentation to
-                 // open the menu panel. The reveal.js slideNumber option must
-                 // be displayed for this to take effect
-                 openSlideNumber: false,
+              <div class="fragment fade-in" data-fragment-index="4">
+                <img src="assets/confused.gif" alt="Confused" width="500">
+              </div>
+            </div>
 
-                 // If true allows the user to open and navigate the menu using
-                 // the keyboard. Standard keyboard interaction with reveal
-                 // will be disabled while the menu is open.
-                 keyboard: true,
+            <aside class="notes">
+              <ul>
+                <li>Les arguments des méthodes doivent être les mêmes que ceux de la générique.</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Method dispatch</h1>
+                <ul>
+                  <li>Deux appels différents à une même fonction peuvent donner un résultat différent</li>
+                  <li>Différence: <em>classe</em> de l&apos;<em>argument</em></li>
+                  <li><em>Polymorphisme</em></li>
+                </ul>
+              </div>
 
-                 // Normally the menu will close on user actions such as
-                 // selecting a menu item, or clicking the presentation area.
-                 // If 'true', the sticky option will leave the menu open
-                 // until it is explicitly closed, that is, using the close
-                 // button or pressing the ESC or m key (when the keyboard
-                 // interaction option is enabled).
-                 sticky: false,
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> summary(cars)
+                         speed           dist
+                     Min.   : 4.0   Min.   :  2.00
+                     1st Qu.:12.0   1st Qu.: 26.00
+                     Median :15.0   Median : 36.00
+                     ...
+                </code></pre>
 
-                 // If 'true' standard menu items will be automatically opened
-                 // when navigating using the keyboard. Note: this only takes
-                 // effect when both the 'keyboard' and 'sticky' options are enabled.
-                 autoOpen: true,
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> summary(lm(dist ~ speed, cars))
+                    Call:
+                    lm(formula = dist ~ speed, data = cars)
 
-                 // If 'true' the menu will not be created until it is explicitly
-                 // requested by calling RevealMenu.init(). Note this will delay
-                 // the creation of all menu panels, including custom panels, and
-                 // the menu button.
-                 delayInit: false,
+                    Residuals:
+                        Min      1Q  Median      3Q     Max
+                    -29.069  -9.525  -2.272   9.215  43.201
 
-                 // If 'true' the menu will be shown when the menu is initialised.
-                 openOnInit: false,
+                    Coefficients:
+                                Estimate Std. Error t value Pr(&gt; |t|)
+                    ...
+                </code></pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Exemple: <code class="language-R hljs">summary</code></h1>
+                <ul>
+                  <li><code class="language-R hljs">summary</code> ne calcule rien, n&apos;affiche rien</li>
+                  <li>Détermine la <em>méthode</em> appropriée à appeller: <em>method dispatch</em></li>
+                  <li>Fonction qui dispatch: <em>fonction générique</em></li>
+                  <li>En R: appellent <code class="language-R hljs">UseMethod</code></li>
+                  <li>Trouve la méthode la plus <em>spécialisée</em> pouvant s&apos;appliquer</li>
+                </ul>
+              </div>
 
-                 // By default the menu will load it's own font-awesome library
-                 // icons. If your presentation needs to load a different
-                 // font-awesome library the 'loadIcons' option can be set to false
-                 // and the menu will not attempt to load the font-awesome library.
-                 loadIcons: true
-             },
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" style="font-size:20px;"data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> methods(summary)
+                     [1] summary.aov                    summary.aovlist*
+                     [3] summary.aspell*                summary.check_packages_in_dir*
+                     [5] summary.connection             summary.data.frame
+                     [7] summary.Date                   summary.default
+                     [9] summary.ecdf*                  summary.factor
+                    [11] summary.glm                    summary.infl*
+                    [13] summary.lm                     summary.loess*
+                    [15] summary.manova                 summary.matrix
+                    [17] summary.mlm*                   summary.nls*
+                    [19] summary.packageStatus*         summary.POSIXct
+                    [21] summary.POSIXlt                summary.ppr*
+                    [23] summary.prcomp*                summary.princomp*
+                    [25] summary.proc_time              summary.srcfile
+                    [27] summary.srcref                 summary.stepfun
+                    [29] summary.stl*                   summary.table
+                    [31] summary.tukeysmooth*           summary.warnings
+                </code></pre>
+              </div>
 
-             spotlight: {
-                 // size of the spotlight
-                 size: 60,
+              <div class="fragment fade-in obox" data-fragment-index="3">
+                Exemple
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    v1 &lt;- structure(c(1, 2),
+                                    class = c("vec", "numeric"))
+                </code></pre>
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> summary.vec(v1)
+                    Error in summary.vec(v1) : could not find
+                      function "summary.vec"
+                </code></pre>
 
-                 // true: Locks the mouse pointer inside the presentation
-                 // there is by design (Pointer Lock API) no spotlightCursor and presentingCursor
-                 // displayed regardless of the configured values
-                 lockPointerInsideCanvas: false,
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> summary.numeric(v1)
+                    Error in summary.vec(v1) : could not find
+                      function "summary.numeric"
+                </code></pre>
 
-                 // toggle spotlight by holding down the mouse key
-                 toggleSpotlightOnMouseDown: true,
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> summary(v1)
+                       Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+                       1.00    1.25    1.50    1.50    1.75    2.00
+                </code></pre>
+              </div>
+            </div>
 
-                 // the keyCode pressed and held to turn on spotlight, disabled when set to false
-                 // Problems with this config? Maybe your touchpad is disabled on keypress?
-                 spotlightOnKeyPressAndHold: false,
+            <aside class="notes">
+              <ul>
+                <li>Analogie avec taxi, répartiteur vs faire signe dans la rue...</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Méthode par défaut</h1>
+                Exemple précédent: <code class="language-R hljs">summary</code> (la générique) cherchait méthode pour
+                <br>
+                <ol>
+                  <li><code class="language-R hljs">vec</code> &#x1f61f;</li>
+                  <li><code class="language-R hljs">numeric</code> &#x1f61f;</li>
+                </ol>
+                <br>
 
-                 // choose the cursor when spotlight is on. Maybe "crosshair"?
-                 spotlightCursor: 'crosshair',
+                Plus de classe, mais <code class="language-R hljs">summary</code> fonctionne quand même...
+                <br>
 
-                 // choose the cursor when spotlight is off and in presentation mode. Maybe "default"?
-                 presentingCursor: 'none',
+                <span class="r-fit-text">Méthode par défaut!</span>
+              </div>
 
-                 // true: initially in presentation mode, will also be ture if this is not set and toggleSpotlightOnMouseDown is true
-                 initialPresentationMode: false,
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> summary.default(v1)
+                       Min. 1st Qu.  Median    Mean 3rd Qu.    Max.
+                       1.00    1.25    1.50    1.50    1.75    2.00
+                </code></pre>
+              </div>
+            </div>
 
-                 // true: disable selecting in presentation mode
-                 disablingUserSelect: true,
+            <aside class="notes">
+              <ul>
+                <li><code class="language-R hljs">sloop::s3_dispatch</code> pour visualiser le processus</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Fonction générique</h1>
+                <ul style="font-size:38px;">
+                  <li>Méthode sans fonction générique: &#x1f61f;</li>
+                  <li>Parfois nécessaire de définir nos propres génériques</li>
+                  <li class="no-after">99% du temps: uniquement <code class="language-R hljs">UseMethod</code>, 2 arguments
+                    <ol>
+                      <li><code class="language-R hljs">generic</code>: nom de la méthode à appeler</li>
+                      <li><code class="language-R hljs">object</code>: objet utilisé pour le dispatch (premier argument passé à la générique par défaut) &#x1fa84;</li>
+                    </ol>
+                  </li>
+                </ul>
+              </div>
 
-                 // set to a number as transition duration in ms to enable fade in and out, disabled when set to false
-                 fadeInAndOut: 100,
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    norme &lt;- function(x, ...)
+                        UseMethod("norme")
+                </code></pre>
 
-                 // enable pointer mode
-                 useAsPointer: false,
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> norme(point(c(3, 4)))
+                    [1] 5
+                </code></pre>
+              </div>
 
-                 // pointer color (If pointer mode enabled)
-                 pointerColor: 'red'
-             },
+              <div class="fragment fade-in obox" data-fragment-index="3">
+                Exemple: Déterminer si des points sont alignés.
+                <pre><code class="language-R hljs" style="font-size:25px;" data-trim data-noescape>
+                    isaligned.point &lt;- function(...) {
+                        points &lt;- list(...)
 
-             keyboard: {
-                 // alternative to toggleSpotlightOnMouseDown:
-                 // toggle spotlight by pressing key 'c'
-                 67: function() { RevealSpotlight.toggleSpotlight() },
+                        isTRUE(length(points) &lt;= 2) && return(TRUE)
 
-                 // enter/leave presentation mode by pressing key 'p'
-                 80: function() {
-                     RevealSpotlight.togglePresentationMode();
-                 },
-             },
+                        fit &lt;- crossprod(
+                            solve(cbind(1, c(points[[1]][1], points[[2]][1]))),
+                            c(points[[1]][2], points[[2]][2]))
 
-             // CSS properties that can be auto-animated. Position & scale
-             // is matched separately so there's no need to include styles
-             // like top/right/bottom/left, width/height or margin.
-             autoAnimateStyles: [
-                 "opacity",
-                 "color",
-                 "background-color",
-                 "padding",
-                 "font-size",
-                 "line-height",
-                 "letter-spacing",
-                 "border-width",
-                 "border-color",
-                 "border-radius",
-                 "outline",
-                 "outline-offset"
-             ],
+                        for (p in points[-(1:2)]) {
+                            pred &lt;- crossprod(c(1, p[1]), fit)[1]
 
-             help: true,
+                            isTRUE(all.equal(pred, p[2])) || return(FALSE)
+                        }
+                        TRUE
+                    }
+                </code></pre>
+              </div>
 
-             autoAnimate: false,
+              <div class="fragment fade-in obox" data-fragment-index="4">
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> isaligned.point(point(1:2),
+                                        point(3:4),
+                                        point(5:6))
+                    [1] TRUE
+                </code></pre>
+              </div>
 
-             transition: "slide",
+              <div class="fragment fade-in obox" data-fragment-index="5">
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> isaligned.point(point(1:2),
+                                        point(3:4),
+                                        point(5:7))
+                    [1] FALSE
+                </code></pre>
+              </div>
 
-             backgroundTransition: 'zoom',
+              <div class="fragment fade-in obox" data-fragment-index="6">
+                Avec une générique!
+                <pre><code class="language-R hljs" style="font-size:35px;" data-trim data-noescape>
+                    isaligned &lt;-  function(...)
+                        UseMethod("isaligned")
+                </code></pre>
+                <pre><code class="language-R hljs" style="font-size:35px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> isaligned(point(1:2),
+                                  point(5:6),
+                                  point(9:10))
+                    [1] TRUE
+                </code></pre>
+                <pre><code class="language-R hljs" style="font-size:35px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> isaligned(point(1:2),
+                                  point(5:6),
+                                  point(9:11))
+                    [1] FALSE
+                </code></pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Point marqué</h1>
+                <ul style="font-size:37px;">
+                  <li>Classe <code class="language-R hljs">point</code>: simple spécialisation de <code class="language-R hljs">numeric</code></li>
+                  <li>Peut se complexifier: <em>héritage</em></li>
+                  <li class="no-after">Exemple: point marqué
+                    <ul>
+                      <li>Hérite de <em>point</em></li>
+                      <li>Ajoute un attribut</li>
+                      <li class="no-after">Autre possibilié: utiliser une liste
+                        <ol>
+                          <li><code class="language-R hljs">point</code></li>
+                          <li>marque</li>
+                        </ol>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
 
-             katex: {
-                 local: "node_modules/katex"
-             }
-         });
-        </script>
-    </body>
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" style="font-size:30px;" data-trim data-noescape>
+                    pointM &lt;- function(v, mark = NULL) {
+                        stopifnot(is.null(mark) ||
+                                     (is.character(mark) &&
+                                      identical(length(mark), 1L)))
+
+                        p &lt;- point(v)
+                        attr(p, "mark") &lt;- mark
+
+                        structure(p, class = c("pointM", class(p)))
+                    }
+                </code></pre>
+              </div>
+              <div class="fragment fade-in obox" data-fragment-index="3">
+                <pre><code class="language-R hljs" style="font-size:35px;" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> p1 &lt;- pointM(1:2, "Premier point")
+                    <span class="hljs-repl">r$&gt;</span> p2 &lt;- pointM(3:4, "Second point")
+                    <span class="hljs-repl">r$&gt;</span> p3 &lt;- pointM(5:6, "Troisième point")
+                </code></pre>
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> p1
+                    x = 1 & y = 2
+
+                    <span class="hljs-repl">r$&gt;</span> norme(p2)
+                    [1] 5
+
+                    <span class="hljs-repl">r$&gt;</span> isaligned(p1, p2, p3)
+                    [1] TRUE
+                </code></pre>
+              </div>
+            </div>
+
+            <aside class="notes">
+              <ul>
+                <li>Offrir la possibilité à l&apos;utilisateur de marquer son point à l&apos;aide d&apos;une chaîne de caractère</li>
+                <li>Possibilité d'ajouter un nombre arbitraire d'attributs à un objet</li>
+                <li>Certains (ex. class, dim) jouent un rôle spécial (voir doc <code class="language-R hljs">attr</code>)</li>
+              </ul>
+            </aside>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Retour sur <code class="language-R hljs">pointM</code></h1>
+                <ul>
+                  <li>Héritage conceptuellement correct: tout ce qui peut être fait avec un point devrait pouvoir se faire avec un point marqué</li>
+                  <li>Pas nécessairement le contraire</li>
+                  <li>Définissons la méthode <code class="language-R hljs">mark</code></li>
+                </ul>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    mark.pointM &lt;- function(point)
+                        print(attr(point, "mark"))
+
+                    mark &lt;- function(point)
+                        UseMethod("mark")
+                </code></pre>
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> mark(p1)
+                    [1] "Premier point"
+                </code></pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <div class="r-stack">
+              <div class="fragment semi-fade-out" data-fragment-index="2">
+                <h1>Setter</h1>
+                Impossible de modifier la marque de la manière habituelle
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> mark(p1) &lt;- "1er point"
+                    Error in mark(p1) &lt;- "1er point":
+                      could not find function "mark<-"
+                </code></pre>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="2">
+                <pre><code class="language-R hljs" data-trim data-noescape>
+                    `mark&lt;-.pointM` &lt;- function(p, v) {
+                        attr(p, "mark") &lt;- v
+                        p
+                    }
+
+                    `mark&lt;-` &lt;- function(p, v, ...)
+                        UseMethod("mark<-")
+                </code></pre>
+              </div>
+
+              <div class="fragment fade-in obox" data-fragment-index="3">
+                <pre><code class="language-lang hljs" data-trim data-noescape>
+                    <span class="hljs-repl">r$&gt;</span> mark(p1) &lt;- "1er point"
+
+                    <span class="hljs-repl">r$&gt;</span> mark(p1)
+                    [1] "1er point"
+                </code></pre>
+              </div>
+            </div>
+          </section>
+          <section>
+            <h1>Performance</h1>
+            <ul>
+              <li>Système par fonction générique: <em>grande</em> flexibilité</li>
+              <li>Coût: plus d&apos;appels de fonctions </li>
+              <li>En général, pas un problème</li>
+              <li>Dans code critique (boucle...), considérer appeler directement la méthode</li>
+            </ul>
+          </section>
+        </section>
+      </div>
+    </div>
+
+    <div id="logo"><p>
+        Patrick Fournier (Université du Québec à Montréal)
+        <span class="separator"></span>
+        MAT8186
+        <span class="separator"></span>
+        Automne 2022
+    </p></div>
+
+    <div id="qrcode" alt="Slides"></div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script src="plugin/math/math.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/spotlight/spotlight.js"></script>
+    <script src="node_modules/reveal.js-menu/menu.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="dist/perso.js"></script>
+    <script type="text/javascript">qrcode.makeCode("https://www.patrickfournier.ca/mat8186-cours4");</script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+          hash: true,
+
+          // Learn about plugins: https://revealjs.com/plugins/
+          plugins: [ RevealHighlight, RevealMath.KaTeX, RevealMenu, RevealMarkdown, RevealNotes ],
+
+          menu: {
+              // Specifies which side of the presentation the menu will
+              // be shown. Use 'left' or 'right'.
+              side: 'left',
+
+              // Specifies the width of the menu.
+              // Can be one of the following:
+              // 'normal', 'wide', 'third', 'half', 'full', or
+              // any valid css length value
+              width: 'normal',
+
+              // Add slide numbers to the titles in the slide list.
+              // Use 'true' or format string (same as reveal.js slide numbers)
+              numbers: false,
+
+              // Specifies which slide elements will be used for generating
+              // the slide titles in the menu. The default selects the first
+              // heading element found in the slide, but you can specify any
+              // valid css selector and the text from the first matching
+              // element will be used.
+              // Note: that a section data-menu-title attribute or an element
+              // with a menu-title class will take precedence over this option
+              titleSelector: 'h1, h2',
+
+              // If slides do not have a matching title, attempt to use the
+              // start of the text content as the title instead
+              useTextContentForMissingTitles: false,
+
+              // Hide slides from the menu that do not have a title.
+              // Set to 'true' to only list slides with titles.
+              hideMissingTitles: true,
+
+              // Adds markers to the slide titles to indicate the
+              // progress through the presentation. Set to 'false'
+              // to hide the markers.
+              markers: true,
+
+              // Specify custom panels to be included in the menu, by
+              // providing an array of objects with 'title', 'icon'
+              // properties, and either a 'src' or 'content' property.
+              custom: false,
+
+              // Specifies the themes that will be available in the themes
+              // menu panel. Set to 'true' to show the themes menu panel
+              // with the default themes list. Alternatively, provide an
+              // array to specify the themes to make available in the
+              // themes menu panel, for example...
+              //
+              // [
+              //     { name: 'Black', theme: 'dist/theme/black.css' },
+              //     { name: 'White', theme: 'dist/theme/white.css' },
+              //     { name: 'League', theme: 'dist/theme/league.css' },
+              //     {
+              //       name: 'Dark',
+              //       theme: 'lib/reveal.js/dist/theme/black.css',
+              //       highlightTheme: 'lib/reveal.js/plugin/highlight/monokai.css'
+              //     },
+              //     {
+              //       name: 'Code: Zenburn',
+              //       highlightTheme: 'lib/reveal.js/plugin/highlight/zenburn.css'
+              //     }
+              // ]
+              //
+              // Note: specifying highlightTheme without a theme will
+              // change the code highlight theme while leaving the
+              // presentation theme unchanged.
+              themes: false,
+
+              // Specifies the path to the default theme files. If your
+              // presentation uses a different path to the standard reveal
+              // layout then you need to provide this option, but only
+              // when 'themes' is set to 'true'. If you provide your own
+              // list of themes or 'themes' is set to 'false' the
+              // 'themesPath' option is ignored.
+              themesPath: 'dist/theme/',
+
+              // Specifies if the transitions menu panel will be shown.
+              // Set to 'true' to show the transitions menu panel with
+              // the default transitions list. Alternatively, provide an
+              // array to specify the transitions to make available in
+              // the transitions panel, for example...
+              // ['None', 'Fade', 'Slide']
+              transitions: false,
+
+              // Adds a menu button to the slides to open the menu panel.
+              // Set to 'false' to hide the button.
+              openButton: true,
+
+              // If 'true' allows the slide number in the presentation to
+              // open the menu panel. The reveal.js slideNumber option must
+              // be displayed for this to take effect
+              openSlideNumber: false,
+
+              // If true allows the user to open and navigate the menu using
+              // the keyboard. Standard keyboard interaction with reveal
+              // will be disabled while the menu is open.
+              keyboard: true,
+
+              // Normally the menu will close on user actions such as
+              // selecting a menu item, or clicking the presentation area.
+              // If 'true', the sticky option will leave the menu open
+              // until it is explicitly closed, that is, using the close
+              // button or pressing the ESC or m key (when the keyboard
+              // interaction option is enabled).
+              sticky: false,
+
+              // If 'true' standard menu items will be automatically opened
+              // when navigating using the keyboard. Note: this only takes
+              // effect when both the 'keyboard' and 'sticky' options are enabled.
+              autoOpen: true,
+
+              // If 'true' the menu will not be created until it is explicitly
+              // requested by calling RevealMenu.init(). Note this will delay
+              // the creation of all menu panels, including custom panels, and
+              // the menu button.
+              delayInit: false,
+
+              // If 'true' the menu will be shown when the menu is initialised.
+              openOnInit: false,
+
+              // By default the menu will load it's own font-awesome library
+              // icons. If your presentation needs to load a different
+              // font-awesome library the 'loadIcons' option can be set to false
+              // and the menu will not attempt to load the font-awesome library.
+              loadIcons: true
+          },
+
+          spotlight: {
+              // size of the spotlight
+              size: 60,
+
+              // true: Locks the mouse pointer inside the presentation
+              // there is by design (Pointer Lock API) no spotlightCursor and presentingCursor
+              // displayed regardless of the configured values
+              lockPointerInsideCanvas: false,
+
+              // toggle spotlight by holding down the mouse key
+              toggleSpotlightOnMouseDown: true,
+
+              // the keyCode pressed and held to turn on spotlight, disabled when set to false
+              // Problems with this config? Maybe your touchpad is disabled on keypress?
+              spotlightOnKeyPressAndHold: false,
+
+              // choose the cursor when spotlight is on. Maybe "crosshair"?
+              spotlightCursor: 'crosshair',
+
+              // choose the cursor when spotlight is off and in presentation mode. Maybe "default"?
+              presentingCursor: 'none',
+
+              // true: initially in presentation mode, will also be ture if this is not set and toggleSpotlightOnMouseDown is true
+              initialPresentationMode: false,
+
+              // true: disable selecting in presentation mode
+              disablingUserSelect: true,
+
+              // set to a number as transition duration in ms to enable fade in and out, disabled when set to false
+              fadeInAndOut: 100,
+
+              // enable pointer mode
+              useAsPointer: false,
+
+              // pointer color (If pointer mode enabled)
+              pointerColor: 'red'
+          },
+
+          keyboard: {
+              // alternative to toggleSpotlightOnMouseDown:
+              // toggle spotlight by pressing key 'c'
+              67: function() { RevealSpotlight.toggleSpotlight() },
+
+              // enter/leave presentation mode by pressing key 'p'
+              80: function() {
+                  RevealSpotlight.togglePresentationMode();
+              },
+          },
+
+          // CSS properties that can be auto-animated. Position & scale
+          // is matched separately so there's no need to include styles
+          // like top/right/bottom/left, width/height or margin.
+          autoAnimateStyles: [
+              "opacity",
+              "color",
+              "background-color",
+              "padding",
+              "font-size",
+              "line-height",
+              "letter-spacing",
+              "border-width",
+              "border-color",
+              "border-radius",
+              "outline",
+              "outline-offset"
+          ],
+
+          help: true,
+
+          autoAnimate: false,
+
+          transition: "slide",
+
+          backgroundTransition: 'zoom',
+
+          katex: {
+              local: "node_modules/katex"
+          }
+      });
+    </script>
+  </body>
 </html>
